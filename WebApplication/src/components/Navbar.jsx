@@ -17,6 +17,7 @@ export default function Navbar({ role, isAuthed, onLogout }) {
             <Link to="/schedule" style={styles.link}>Schedule</Link>
             <Link to="/workouts" style={styles.link}>Workouts</Link>
             <Link to="/memberships" style={styles.link}>Memberships</Link>
+            <Link to="/payments" style={styles.link}>Payments</Link>
           </>
         )}
         {role === 'trainer' && (
@@ -30,6 +31,7 @@ export default function Navbar({ role, isAuthed, onLogout }) {
           <>
             <Link to="/admin" style={styles.link}>Admin</Link>
             <Link to="/schedule" style={styles.link}>Schedule</Link>
+            <Link to="/payments" style={styles.link}>Payments</Link>
           </>
         )}
         {isAuthed && <Link to="/profile" style={styles.link}>Profile</Link>}

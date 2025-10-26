@@ -28,6 +28,12 @@ export const ENDPOINTS = {
   ADMIN: {
     // PUBLIC_INTERFACE
     REPORTS: '/admin/reports'
+  },
+  PAYMENTS: {
+    // PUBLIC_INTERFACE
+    CREATE_CHECKOUT: '/payments/create-checkout',
+    // PUBLIC_INTERFACE
+    HISTORY: '/payments/history'
   }
 };
 
