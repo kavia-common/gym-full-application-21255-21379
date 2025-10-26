@@ -36,9 +36,18 @@ function App() {
     setAuthToken(token);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    // Clear local app state and client token store
     setAuth({ token: null, role: null, user: null });
     setAuthToken(null);
+    // Optionally inform backend (ignore errors)
+    try {
+      const { apiPost } = await import('./api/client');
+      const { ENDPOINTS } = await import('./api/endpoints');
+      await apiPost(ENDPOINTS.AUTH.LOGOUT, {});
+    } catch (_) {
+      // no-op on logout errors
+    }
   };
 
   // Attempt to hydrate token if page reload retained in-memory? In-memory only by spec (no storage).

@@ -1,26 +1,55 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { fakeAuth } from '../api/client';
+import { apiPost, setAuthToken } from '../api/client';
+import { ENDPOINTS } from '../api/endpoints';
 
 // PUBLIC_INTERFACE
 export default function Login({ onLogin }) {
-  /** Minimal login form. Uses fakeAuth stub; replace with real backend call later. */
+  /** Login form using backend API. Persists token, handles errors, and redirects role-based. */
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const redirectByRole = (role) => {
+    // Basic role-based navigation
+    if (role === 'admin') return navigate('/admin', { replace: true });
+    // Trainers and members go to dashboard by default
+    return navigate('/dashboard', { replace: true });
+  };
+
   const submit = async (e) => {
     e.preventDefault();
     setBusy(true);
     setError('');
     try {
-      const res = await fakeAuth(email, password);
-      onLogin(res);
-      navigate('/dashboard');
+      // Call backend login
+      const res = await apiPost(ENDPOINTS.AUTH.LOGIN, { email, password });
+      // Expecting { access_token, role, user }
+      const token = res?.access_token || res?.token || null;
+      const role = res?.role || 'member';
+      const user = res?.user || { email };
+
+      if (!token) {
+        throw { message: 'Login failed: no token received' };
+      }
+
+      // Persist token in client store
+      setAuthToken(token);
+
+      // Notify app state via onLogin
+      onLogin?.({ access_token: token, role, user });
+
+      // Redirect based on role
+      redirectByRole(role);
     } catch (err) {
-      setError(err?.message || 'Login failed');
+      const msg =
+        err?.message ||
+        err?.data?.detail ||
+        err?.data?.message ||
+        'Login failed';
+      setError(msg);
     } finally {
       setBusy(false);
     }
@@ -34,21 +63,23 @@ export default function Login({ onLogin }) {
         <input
           value={email}
           onChange={(e)=>setEmail(e.target.value)}
-          placeholder="member@demo | trainer@demo | admin@demo"
+          placeholder="you@example.com"
           style={styles.input}
           type="email"
           required
+          disabled={busy}
         />
         <label style={styles.label}>Password</label>
         <input
           value={password}
           onChange={(e)=>setPassword(e.target.value)}
-          placeholder="password"
+          placeholder="••••••••"
           style={styles.input}
           type="password"
           required
+          disabled={busy}
         />
-        {error && <div style={styles.error}>{error}</div>}
+        {error && <div style={styles.error} role="alert">{error}</div>}
         <button disabled={busy} type="submit" style={styles.btn}>
           {busy ? 'Signing in...' : 'Login'}
         </button>
