@@ -22,6 +22,8 @@ export const ENDPOINTS = {
     LIST: '/workouts',
     // PUBLIC_INTERFACE
     DETAIL: (id) => `/workouts/${id}`,
+    // PUBLIC_INTERFACE
+    MINE: '/workouts/mine'
   },
   ADMIN: {
     // PUBLIC_INTERFACE
