@@ -13,12 +13,15 @@ export default function Navbar({ role, isAuthed, onLogout }) {
         {isAuthed && <Link to="/dashboard" style={styles.link}>Dashboard</Link>}
         {role === 'member' && (
           <>
+            <Link to="/member" style={styles.link}>Member</Link>
             <Link to="/schedule" style={styles.link}>Schedule</Link>
             <Link to="/workouts" style={styles.link}>Workouts</Link>
+            <Link to="/memberships" style={styles.link}>Memberships</Link>
           </>
         )}
         {role === 'trainer' && (
           <>
+            <Link to="/trainer" style={styles.link}>Trainer</Link>
             <Link to="/schedule" style={styles.link}>Schedule</Link>
             <Link to="/workouts" style={styles.link}>Clients</Link>
           </>
@@ -29,6 +32,7 @@ export default function Navbar({ role, isAuthed, onLogout }) {
             <Link to="/schedule" style={styles.link}>Schedule</Link>
           </>
         )}
+        {isAuthed && <Link to="/profile" style={styles.link}>Profile</Link>}
       </div>
       <div style={styles.right}>
         {!isAuthed ? (
