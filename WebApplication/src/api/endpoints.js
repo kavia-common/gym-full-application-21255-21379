@@ -11,6 +11,10 @@ export const ENDPOINTS = {
     // PUBLIC_INTERFACE
     ME: '/users/me'
   },
+  NOTIFICATIONS: {
+    // PUBLIC_INTERFACE
+    MINE: '/notifications/mine'
+  },
   CLASSES: {
     // PUBLIC_INTERFACE
     LIST: '/classes',

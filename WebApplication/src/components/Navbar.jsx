@@ -35,6 +35,7 @@ export default function Navbar({ role, isAuthed, onLogout }) {
           </>
         )}
         {isAuthed && <Link to="/profile" style={styles.link}>Profile</Link>}
+        {isAuthed && <Link to="/notifications" style={styles.link}>Notifications</Link>}
       </div>
       <div style={styles.right}>
         {!isAuthed ? (

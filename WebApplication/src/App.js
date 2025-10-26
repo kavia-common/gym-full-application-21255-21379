@@ -17,6 +17,7 @@ import Trainer from './pages/Trainer';
 import Profile from './pages/Profile';
 import Memberships from './pages/Memberships';
 import Payments from './pages/Payments';
+import Notifications from './pages/Notifications';
 import { apiGet, getAuthToken, setAuthToken } from './api/client';
 import { ENDPOINTS } from './api/endpoints';
 
@@ -128,6 +129,7 @@ function App() {
           <Route element={<ProtectedRoute isAuthed={isAuthed} userRole={role} />}>
             <Route path="/dashboard" element={<Dashboard role={role} user={auth.user} />} />
             <Route path="/payments" element={<Payments />} />
+            <Route path="/notifications" element={<Notifications />} />
           </Route>
 
           {/* Root redirects to role home when authed */}
