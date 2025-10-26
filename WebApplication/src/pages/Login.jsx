@@ -32,7 +32,8 @@ export default function Login({ onLogin }) {
       const user = res?.user || { email };
 
       if (!token) {
-        throw { message: 'Login failed: no token received' };
+        // Throw a real Error object to satisfy eslint and convey message consistently
+        throw new Error('Login failed: no token received');
       }
 
       // Persist token in client store

@@ -30,6 +30,8 @@ export default function Payments() {
    * - Display user's payment history via GET /payments/history
    * - Show loading and error states, and simple status indicators
    */
+  // Note: 'loading' state is currently unused but reserved for future enhancements.
+  // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(false);
   const [historyLoading, setHistoryLoading] = useState(true);
   const [error, setError] = useState('');

@@ -108,11 +108,9 @@ export default function Workouts() {
   }, [queryMine, queryTrainerList]);
 
   useEffect(() => {
-    let mounted = true;
     (async () => {
       await loadWorkouts();
     })();
-    return () => { mounted = false; };
   }, [loadWorkouts]);
 
   const refresh = async () => {

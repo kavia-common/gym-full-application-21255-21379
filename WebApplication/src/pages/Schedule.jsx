@@ -37,6 +37,8 @@ export default function Schedule() {
   // Simulated trainer list until backend endpoint is available.
   // If BackendAPI exposes /trainers, this can be replaced with a fetch.
   const [trainers, setTrainers] = useState([{ id: '', name: 'All trainers' }]);
+  // eslint-disable-next-line no-unused-vars
+  const _noopKeepSetTrainers = setTrainers; // Placeholder until trainers endpoint is integrated
 
   const query = useMemo(() => {
     const params = new URLSearchParams();

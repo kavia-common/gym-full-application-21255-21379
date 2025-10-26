@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { apiGet, apiPatch } from '../api/client';
 import { ENDPOINTS } from '../api/endpoints';
 
@@ -63,11 +63,9 @@ export default function Notifications() {
   }, []);
 
   useEffect(() => {
-    let mounted = true;
     (async () => {
       await loadData();
     })();
-    return () => { mounted = false; };
   }, [loadData]);
 
   const savePrefs = async (updates) => {
